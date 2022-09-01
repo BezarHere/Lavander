@@ -1,0 +1,11 @@
+{
+	"$type" : "lib",
+	"Base" : "__base__",
+	"blit_img" : "\"type\" : \"blit\"",
+	"ani_img" : "\"type\" : \"animation\"",
+
+	"x" : "\"x\" :",
+	"y" : "\"y\" :",
+	"w" : "\"w\" :",
+	"h" : "\"h\" :",
+}

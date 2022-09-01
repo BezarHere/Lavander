@@ -1,0 +1,84 @@
+{
+	"glimer": {
+		"type": "entity",
+		"player_use": {
+			"visible": false,
+			"unlockble": false,
+			"cost": {
+
+			},
+			"req": {
+
+			}
+		},
+		"collisions": [
+			{
+				"type": "box",
+				"size": {
+
+				}
+			}
+		],
+		"health": 40,
+		"speed": 6000,
+		"max_speed": 440,
+		"graphics": {
+			"base": {
+				"type": "blit",
+				"path": "C:/Users/dl/Desktop/Godot/Lavander/mods/base/data/enemies/enemies.png",
+				"frame": {
+					"x": 0,
+					"y": 0,
+					"w": 64,
+					"h": 64
+				}
+			}
+		},
+		"hitbox": {
+			"type": "tringle",
+			"hight": 60,
+			"base": 64,
+			"offset": {
+				"x": 0,
+				"y": 0
+			}
+		},
+		"weapon": {
+			"type": "basic",
+			"firerate": 1.5,
+			"projectile": {
+				"type": "basic",
+				"damage": {
+					"type": "kineatic",
+					"amount": 7
+				},
+				"speed": 1,
+				"target_speed": 650,
+				"start_speed": 600,
+				"graphics": {
+					"base": {
+						"type": "blit",
+						"path": "C:/Users/dl/Desktop/Godot/Lavander/mods/base/data/projectiles/graphics.png",
+						"frame": {
+							"x": 0,
+							"y": 0,
+							"w": 32,
+							"h": 32
+						}
+					}
+				},
+				"hitbox": {
+					"type": "circle",
+					"radius": 8,
+					"offset": {
+						"x": 0,
+						"y": 0
+					}
+				}
+			}
+		},
+		"#mod": "base",
+		"#id": "glimer",
+		"#path": "C:/Users/dl/Desktop/Godot/Lavander/mods/base/data/enemies/enemies.json"
+	}
+}
