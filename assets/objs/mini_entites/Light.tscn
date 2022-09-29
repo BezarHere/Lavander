@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/objs/mini_entites/Light.gd" type="Script" id=1]
+[ext_resource path="res://assets/scripts/objs/Cam.gd" type="Script" id=2]
+
+[sub_resource type="Gradient" id=4]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture2D" id=5]
+gradient = SubResource( 4 )
+width = 32
+height = 32
+use_hdr = true
+fill = 1
+fill_from = Vector2( 0.5, 0.5 )
+fill_to = Vector2( 1, 0.5 )
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0.0282685, 0.967161 ), 0.0, 0.0, 0, 0, Vector2( 0.64311, 0.78072 ), 0.0, 0.0, 0, 0, Vector2( 0.975265, 0.00105929 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0.690476, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.531746, 1 )
+colors = PoolColorArray( 1, 0.703125, 0.703125, 1, 0.554688, 0.609917, 1, 1, 0.577374, 1, 0.480469, 1 )
+
+[sub_resource type="Gradient" id=6]
+interpolation_mode = 2
+offsets = PoolRealArray( 0.511905, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture2D" id=7]
+gradient = SubResource( 6 )
+width = 38
+height = 38
+use_hdr = true
+fill = 1
+fill_from = Vector2( 0.5, 0.5 )
+fill_to = Vector2( 1, 0.5 )
+
+[sub_resource type="CircleShape2D" id=8]
+radius = 15.0
+
+[node name="Light" type="KinematicBody2D"]
+script = ExtResource( 1 )
+speed = 300.0
+
+[node name="trail" type="CPUParticles2D" parent="."]
+amount = 50
+lifetime = 3.0
+local_coords = false
+texture = SubResource( 5 )
+emission_shape = 1
+emission_sphere_radius = 14.0
+gravity = Vector2( 0, 0 )
+angular_velocity = 20.0
+angular_velocity_random = 1.0
+angle = 720.0
+angle_random = 1.0
+scale_amount = 0.25
+scale_amount_random = 0.2
+scale_amount_curve = SubResource( 1 )
+color_ramp = SubResource( 2 )
+color_initial_ramp = SubResource( 3 )
+
+[node name="base" type="Sprite" parent="."]
+texture = SubResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 8 )
+
+[node name="Cam" type="Camera2D" parent="."]
+current = true
+smoothing_enabled = true
+script = ExtResource( 2 )
