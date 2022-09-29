@@ -1,4 +1,5 @@
 # Lavander
 Basic rouge-like 2D game i'm making
 
-## please DM me if you have anything
+*My tweeter: tweeter.com/BotatoDevbird
+My discord: https://discord.gg/FUFZx5SGJv*
