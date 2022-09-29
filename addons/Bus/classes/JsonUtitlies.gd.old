@@ -1,0 +1,178 @@
+class_name CDF extends Object # Compact Data File
+
+enum COMMAS {SINGLE, DOUBLE}
+enum TOKENS {
+	EPXRESSION_END,
+	SET_TYPE,
+	NAME,
+	INDINIFER
+}
+
+var errors : ErrorsBuilder
+
+func Parse(text : String) -> String:
+	text = "{" + text.dedent() + "}"
+	errors = ErrorsBuilder.new()
+	
+	var data : Dictionary
+	var json_text : String
+	
+	
+	var MainClassOpened : bool
+	var SubObjects : int; var SubLists : int
+	var InString : int
+	var InComment : bool
+	
+	
+	var x : int
+	
+	var _Done : bool = false
+	var _Skip : bool = false
+	
+	var UsedKey : String
+	var InValueNeed : bool = false
+	
+	var Cursor : Dictionary = {line = 0, colom = 0}
+	
+	var Last_Position : int
+	
+	while x < text.length() and !_Done:
+		Cursor.line += text.count("\n", Last_Position, x)
+		Cursor.colom = x - (text.substr(Last_Position, x).find_last("\n") + Last_Position)
+		
+		Last_Position = x
+		
+		match text[x]:
+			"{":
+				if !MainClassOpened:
+					MainClassOpened = true
+					x += 1
+					break
+				SubObjects += 1
+			"}":
+				if !SubObjects:
+					MainClassOpened = false
+					_Done = true
+					break
+			"/":
+				if text[x + 1] == "/":
+					x = FindAny(text, ["\n", "//"], x)
+					if x < 0:
+						_Done = true
+						break
+				elif text[x + 1] == "*":
+					x = text.find("*/", x)
+					if x < 0:
+						_Done = true
+						break
+			"'", '"':
+				var dis : int = text.find(text[x], x)
+				if dis < 0:
+					json_text += text.substr(x)
+					_Done = true
+					break
+				json_text += text.substr(x, dis - x)
+				x = dis
+				_Skip = true
+			"=":
+				if UsedKey:
+					InValueNeed = true
+				else:
+					errors.Append_Params("Invalid '=' placment.", errors.ERROR, Cursor)
+		
+		
+		if IsChar(text[x]):
+			var dis : int = text.find(" ", x)
+			if dis < 0:
+				json_text += text.substr(x)
+				_Done = true
+				break
+			json_text += text.substr(x, dis - x)
+			data[text.substr(x, dis - x)] = null
+			UsedKey = text.substr(x, dis - x)
+			x = dis
+			
+			continue
+		
+		
+		
+		if _Skip:
+			_Skip = false
+			continue
+		
+		x += 1
+		json_text += text[x]
+	
+	
+	return json_text
+
+static func FixMissings(text : String) -> String:
+	text = text.dedent()
+	var OpenedMain : bool = false
+	var _Done : bool
+	var _Skip : bool
+	var Ind : int
+	var SubDic : int
+	var SubArr : int
+	var SubStrings : int
+	
+	while Ind < text.length() and !_Done:
+		match text[Ind]:
+			"{":
+				if !OpenedMain:
+					OpenedMain = true
+					continue
+				SubDic += 1
+			"}":
+				if OpenedMain and !SubDic:
+					_Done = true
+					continue
+				SubDic -= 1
+			"[":
+				SubArr += 1
+			"]":
+				SubArr -= 1
+			'"', "'":
+				var dis : int = text.find(text[Ind], Ind + 1)
+				if dis < 0:
+					_Done = true
+					continue
+				Ind = dis
+				_Skip = true
+			_:
+				if !SubArr and !SubDic and OpenedMain:
+					var i : int = Ind
+					var found_comma : bool
+					while i < text.length():
+						if text[i] == ",":
+							found_comma = true
+							break
+						if !text[i] in ["\n", " ", "\t"]:
+							found_comma = false
+							break
+						i += 1
+					
+					
+					if !found_comma:
+						var dis : int = text.find("\n", Ind)
+						if dis < 0:
+							_Done = true
+							continue
+						text = text.insert(dis, ",")
+		
+		if _Skip:
+			_Skip = false
+			continue
+		
+		Ind += 1
+	
+	
+	return text
+
+static func IsChar(t : String) -> bool: return  (t >= "a" and t <= "z") or (t >= "A" and t <= "Z")
+
+static func FindAny(s : String, pool : PoolStringArray, from : int = 0) -> int:
+	for x in pool:
+		var f : int = s.find(x, from)
+		if f > -1: return f
+	return -1
