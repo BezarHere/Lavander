@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/ui/modules/EntityHUD.gd" type="Script" id=2]
+
+[node name="EntityHUD" type="VBoxContainer"]
+margin_right = 100.0
+margin_bottom = 20.0
+mouse_filter = 2
+theme = ExtResource( 1 )
+custom_constants/separation = 2
+script = ExtResource( 2 )
+
+[node name="name" type="Label" parent="."]
+margin_right = 100.0
+margin_bottom = 10.0
+text = "Raian the kan"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="health" type="ProgressBar" parent="."]
+modulate = Color( 1, 0, 0, 1 )
+margin_top = 12.0
+margin_right = 100.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 8 )
+mouse_filter = 2
+theme_type_variation = "HealthBar"
+max_value = 60.0
+value = 40.0

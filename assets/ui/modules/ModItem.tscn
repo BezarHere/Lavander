@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/ui/modules/ModItem.gd" type="Script" id=1]
+
+[node name="ModItem" type="Button"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -486.0
+margin_bottom = -578.0
+rect_min_size = Vector2( 0, 22 )
+theme_type_variation = "SolidPanelButton"
+script = ExtResource( 1 )
+
+[node name="hbc" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="enabled" type="Button" parent="hbc"]
+margin_right = 22.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 22, 0 )
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = "ButtonChecked"
+toggle_mode = true
+enabled_focus_mode = 0
+align = 2
+icon_align = 2
+
+[node name="name" type="Label" parent="hbc"]
+margin_left = 26.0
+margin_top = 6.0
+margin_right = 438.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+text = "Base"
+valign = 1
+
+[node name="ver" type="Label" parent="hbc"]
+margin_left = 442.0
+margin_top = 6.0
+margin_right = 538.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 96, 0 )
+size_flags_horizontal = 0
+text = "0.1.5"
+align = 1
+valign = 1
