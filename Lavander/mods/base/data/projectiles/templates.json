@@ -1,5 +1,0 @@
-{
-	"$type" : "lib",
-
- 	"projectile_basic_graphics" : "\"type\" : \"blit\", \"path\" : \"__base__/data/projectiles/graphics.png\", \"frame\" : {\"x\" : 0, \"y\" : 0, \"w\" : 32, \"h\" : 32}"
-}

@@ -1,5 +1,0 @@
-{
-	"$type" : "lib",
-	"enemies_img_path" : "__base__/data/enemies/enemies.png",
-	"enemies_i_path" : "\"path\" : \"__base__/data/enemies/enemies.png\"",
-}
